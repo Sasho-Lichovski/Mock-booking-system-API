@@ -4,6 +4,6 @@ namespace Services.Interfaces
 {
     public interface ISearchService
     {
-        ResponseModel Search(SearchModel model);
+        Task<ResponseModel> Search(SearchModel model);
     }
 }

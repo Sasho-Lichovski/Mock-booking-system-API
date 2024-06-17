@@ -17,7 +17,7 @@ namespace Mock_booking_system_API.Controllers
 
         [HttpPost]
         [Route("Search")]
-        public IActionResult Search([FromBody] SearchModel model)
+        public async Task<IActionResult> Search([FromBody] SearchModel model)
         {
             if (string.IsNullOrWhiteSpace(model.ArrivalAirport))
                 return Ok("Please provide arrival airpot");
@@ -31,7 +31,7 @@ namespace Mock_booking_system_API.Controllers
             ResponseModel response = new ResponseModel();
             try
             {
-                response = searchService.Search(model);
+                response = await searchService.Search(model);
             }
             catch (Exception ex)
             {

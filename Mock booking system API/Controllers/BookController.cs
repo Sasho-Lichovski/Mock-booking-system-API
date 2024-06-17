@@ -10,5 +10,12 @@ namespace Mock_booking_system_API.Controllers
         {
             
         }
+
+        public IActionResult Book()
+        {
+
+
+            return Ok();
+        }
     }
 }

@@ -19,14 +19,14 @@ namespace Services.Services
             this.cacheRepository = cacheRepository;
         }
 
-        public ResponseModel Search(SearchModel model)
+        public async Task<ResponseModel> Search(SearchModel model)
         {
             var searchResponse = new ResponseModel();
 
             var cachedHotels = cacheRepository.Get(SearchTypes.Hotels, model.ArrivalAirport);
             if (string.IsNullOrEmpty(cachedHotels) || cachedHotels == null)
             {
-                var jsonString = GetHotels(model.ArrivalAirport);
+                var jsonString = await GetHotels(model.ArrivalAirport);
                 if (!string.IsNullOrEmpty(jsonString))
                 {
                     var hotels = JsonConvert.DeserializeObject<List<Hotel>>(jsonString);
@@ -48,7 +48,7 @@ namespace Services.Services
                 var cachedFlights = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.ArrivalAirport}");
                 if (string.IsNullOrEmpty(cachedFlights) || cachedFlights == null)
                 {
-                    var jsonString = GetFlights(model.DepartureAirport, model.ArrivalAirport);
+                    var jsonString = await GetFlights(model.DepartureAirport, model.ArrivalAirport);
                     cachedFlights = jsonString;
                 }
 
@@ -82,24 +82,24 @@ namespace Services.Services
             return searchResponse;
         }
 
-        private string GetHotels(string code)
+        private async Task<string> GetHotels(string code)
         {
             var client = new RestClient(searchHotelsUrl.Replace("{code}", code));
             var request = new RestRequest();
             request.Method = Method.Get;
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
             if (response.IsSuccessful && response.StatusCode == System.Net.HttpStatusCode.OK && !string.IsNullOrEmpty(response.Content) && response.Content != "[]")
                 return response.Content;
 
             return string.Empty;
         }
 
-        private string GetFlights(string dptCode, string arrCode)
+        private async Task<string> GetFlights(string dptCode, string arrCode)
         {
             var client = new RestClient(searchFlights.Replace("{dptCode}", dptCode).Replace("{arrCode}", arrCode));
             var request = new RestRequest();
             request.Method = Method.Get;
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
             if (response.IsSuccessful && response.StatusCode == System.Net.HttpStatusCode.OK && !string.IsNullOrEmpty(response.Content) && response.Content != "[]")
                 return response.Content;
 
