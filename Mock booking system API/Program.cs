@@ -18,7 +18,8 @@ namespace Mock_booking_system_API
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<ICacheRepository, CacheRepository>();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

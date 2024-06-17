@@ -39,6 +39,10 @@ namespace Services.Services
                 searchResponse.Hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
             }
 
+            var isLastMinuteCall = IsLastMinuteCall(model.DateFrom.Value, 45);
+            if (isLastMinuteCall)
+                return searchResponse;
+
             if (!string.IsNullOrWhiteSpace(model.DepartureAirport))
             {
                 var cachedFlights = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.ArrivalAirport}");
@@ -100,6 +104,14 @@ namespace Services.Services
                 return response.Content;
 
             return string.Empty;
+        }
+
+        public bool IsLastMinuteCall(DateTime dateFrom, int daysCount)
+        {
+            DateTime today = DateTime.Now;
+            DateTime targetDate = today.AddDays(daysCount);
+
+            return dateFrom > today && dateFrom <= targetDate;
         }
     }
 }

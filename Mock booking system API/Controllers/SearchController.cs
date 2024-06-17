@@ -22,6 +22,12 @@ namespace Mock_booking_system_API.Controllers
             if (string.IsNullOrWhiteSpace(model.ArrivalAirport))
                 return Ok("Please provide arrival airpot");
 
+            if (model.DateFrom == null)
+                return Ok("Please provide date from");
+
+            if (model.DateTo == null)
+                return Ok("Please provide date to");
+
             ResponseModel response = new ResponseModel();
             try
             {
