@@ -30,16 +30,20 @@ namespace Services.Services
                 var jsonString = await GetHotels(model.Destination);
                 if (!string.IsNullOrEmpty(jsonString))
                 {
-                    cachedHotels = jsonString;
                     hotels = JsonConvert.DeserializeObject<List<Hotel>>(jsonString);
+                    foreach (var hotel in hotels)
+                    {
+                        hotel.OptionCode = GetOptionCode(6);
+                    }
                     cacheRepository.Set(SearchTypes.Hotels, model.Destination, hotels);
+                    searchResponse.Options = hotels;
                 }
             }
-            if (string.IsNullOrEmpty(cachedHotels))
-                return searchResponse;
-
-            hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
-            searchResponse.Options = hotels;
+            else
+            {
+                hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
+                searchResponse.Options = hotels;
+            }
 
             if (IsLastMinuteCall(model.DateFrom.Value, 45))
                 return searchResponse;
@@ -108,12 +112,21 @@ namespace Services.Services
             return string.Empty;
         }
 
-        public bool IsLastMinuteCall(DateTime dateFrom, int daysCount)
+        private bool IsLastMinuteCall(DateTime dateFrom, int daysCount)
         {
             DateTime today = DateTime.Now;
             DateTime targetDate = today.AddDays(daysCount);
 
             return dateFrom > today && dateFrom <= targetDate;
+        }
+
+        private string GetOptionCode(int length)
+        {
+            var random = new Random();
+            const string pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var chars = Enumerable.Range(0, length)
+                .Select(x => pool[random.Next(0, pool.Length)]);
+            return new string(chars.ToArray());
         }
     }
 }

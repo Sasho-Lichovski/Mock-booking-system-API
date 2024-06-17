@@ -7,5 +7,7 @@
         public string HotelName { get; set; }
         public string DestinationCode { get; set; }
         public string City { get; set; }
+
+        public string OptionCode { get; set; }
     }
 }

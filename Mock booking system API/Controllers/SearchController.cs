@@ -17,21 +17,21 @@ namespace Mock_booking_system_API.Controllers
 
         [HttpPost]
         [Route("Search")]
-        public async Task<IActionResult> Search([FromBody] SearchReq model)
+        public async Task<IActionResult> Search([FromBody] SearchReq request)
         {
-            if (string.IsNullOrWhiteSpace(model.Destination))
+            if (string.IsNullOrWhiteSpace(request.Destination))
                 return Ok("Please provide arrival airpot");
 
-            if (model.DateFrom == null)
+            if (request.DateFrom == null)
                 return Ok("Please provide date from");
 
-            if (model.DateTo == null)
+            if (request.DateTo == null)
                 return Ok("Please provide date to");
 
             ResponseReq response = new ResponseReq();
             try
             {
-                response = await searchService.Search(model);
+                response = await searchService.Search(request);
             }
             catch (Exception ex)
             {

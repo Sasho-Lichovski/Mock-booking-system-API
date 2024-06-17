@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
+using Services.Models.Book;
 
 namespace Mock_booking_system_API.Controllers
 {
@@ -6,15 +8,25 @@ namespace Mock_booking_system_API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        public BookController()
+        private readonly IBookService bookService;
+
+        public BookController(IBookService bookService)
         {
-            
+            this.bookService = bookService;
         }
 
         [HttpPost]
-        public IActionResult Book()
+        public  IActionResult Book([FromBody] BookReq request)
         {
-            return Ok();
+            try
+            {
+                bookService.CreateBooking(request);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Ok("Pending");
         }
     }
 }

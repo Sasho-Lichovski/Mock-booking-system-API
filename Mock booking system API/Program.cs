@@ -13,6 +13,7 @@ namespace Mock_booking_system_API
 
             // Add services to the container.
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<IBookService, BookService>();
 
             // repositories
             builder.Services.AddMemoryCache();
