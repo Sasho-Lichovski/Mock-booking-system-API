@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "FgRU4q90t0cdgEMfClz2pjpy3GCtSPaR8ZbWJBucE7k1lExqyZodyNhNBMvJQFCaZwJwjw+46bF0bvqCz7ti3g==",
+  "dgSpecHash": "7n1G5+gxW+lsqwxwILVFr2qCck65KWv14gm2UyfmMK62Dt0r8ApqL1TvUiOKBJY8UOnktrmiRd6dEv7RI74pnQ==",
   "success": true,
   "projectFilePath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Repository\\Repository.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.0\\microsoft.extensions.caching.memory.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

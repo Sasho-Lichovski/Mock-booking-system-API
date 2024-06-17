@@ -1,3 +1,8 @@
+using Repository.Interfaces;
+using Repository.Repositories;
+using Services.Interfaces;
+using Services.Services;
+
 namespace Mock_booking_system_API
 {
     public class Program
@@ -7,6 +12,11 @@ namespace Mock_booking_system_API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<ISearchService, SearchService>();
+
+            // repositories
+            builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<ICacheRepository, CacheRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

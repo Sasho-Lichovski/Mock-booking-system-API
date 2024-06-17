@@ -91,6 +91,9 @@
             "projectReferences": {
               "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Entities\\Entities.csproj": {
                 "projectPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Entities\\Entities.csproj"
+              },
+              "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj"
               }
             }
           }
@@ -104,6 +107,16 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -153,8 +166,79 @@
             "projectReferences": {
               "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Repository\\Repository.csproj": {
                 "projectPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Repository\\Repository.csproj"
+              },
+              "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj"
               }
             }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[111.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj",
+        "projectName": "Utils",
+        "projectPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\Utils.csproj",
+        "packagesPath": "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\",
+        "outputPath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Utils\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Sasho Lichovski\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/SoProDev/SoProDev/_packaging/Sopro.EmailFinder/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/SoProDev/SoProDev/_packaging/SoproCrossPlatform/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/SoProDev/_packaging/SoProMasterDataAdapter/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
           }
         },
         "warningProperties": {

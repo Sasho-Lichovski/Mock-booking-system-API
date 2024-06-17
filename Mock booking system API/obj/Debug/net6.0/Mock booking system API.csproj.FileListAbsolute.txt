@@ -14,7 +14,6 @@ C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.AssemblyInfoInputs.cache
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.AssemblyInfo.cs
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.csproj.CoreCompileInputs.cache
-C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.MvcApplicationPartsAssemblyInfo.cs
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.MvcApplicationPartsAssemblyInfo.cache
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\staticwebassets\msbuild.Mock booking system API.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\staticwebassets\msbuild.build.Mock booking system API.props
@@ -30,3 +29,14 @@ C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.pdb
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.genruntimeconfig.cache
 C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\ref\Mock booking system API.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Entities.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Repository.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Services.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Services.pdb
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Entities.pdb
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Repository.pdb
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\RestSharp.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\obj\Debug\net6.0\Mock booking system API.MvcApplicationPartsAssemblyInfo.cs
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Utils.dll
+C:\Solutions\Mock booking system API\Mock-booking-system-API\Mock booking system API\bin\Debug\net6.0\Utils.pdb
