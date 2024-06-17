@@ -19,48 +19,49 @@ namespace Services.Services
             this.cacheRepository = cacheRepository;
         }
 
-        public async Task<ResponseModel> Search(SearchModel model)
+        public async Task<ResponseReq> Search(SearchReq model)
         {
-            var searchResponse = new ResponseModel();
+            var searchResponse = new ResponseReq();
+            var hotels = new List<Hotel>();
 
-            var cachedHotels = cacheRepository.Get(SearchTypes.Hotels, model.ArrivalAirport);
+            var cachedHotels = cacheRepository.Get(SearchTypes.Hotels, model.Destination);
             if (string.IsNullOrEmpty(cachedHotels) || cachedHotels == null)
             {
-                var jsonString = await GetHotels(model.ArrivalAirport);
+                var jsonString = await GetHotels(model.Destination);
                 if (!string.IsNullOrEmpty(jsonString))
                 {
-                    var hotels = JsonConvert.DeserializeObject<List<Hotel>>(jsonString);
-                    cacheRepository.Set(SearchTypes.Hotels, model.ArrivalAirport, hotels);
-                    searchResponse.Hotels = hotels;
+                    cachedHotels = jsonString;
+                    hotels = JsonConvert.DeserializeObject<List<Hotel>>(jsonString);
+                    cacheRepository.Set(SearchTypes.Hotels, model.Destination, hotels);
                 }
             }
-            else
-            {
-                searchResponse.Hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
-            }
+            if (string.IsNullOrEmpty(cachedHotels))
+                return searchResponse;
 
-            var isLastMinuteCall = IsLastMinuteCall(model.DateFrom.Value, 45);
-            if (isLastMinuteCall)
+            hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
+            searchResponse.Options = hotels;
+
+            if (IsLastMinuteCall(model.DateFrom.Value, 45))
                 return searchResponse;
 
             if (!string.IsNullOrWhiteSpace(model.DepartureAirport))
             {
-                var cachedFlights = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.ArrivalAirport}");
+                var cachedFlights = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}");
                 if (string.IsNullOrEmpty(cachedFlights) || cachedFlights == null)
                 {
-                    var jsonString = await GetFlights(model.DepartureAirport, model.ArrivalAirport);
+                    var jsonString = await GetFlights(model.DepartureAirport, model.Destination);
                     cachedFlights = jsonString;
                 }
 
                 if (!string.IsNullOrEmpty(cachedFlights))
                 {
                     var flights = JsonConvert.DeserializeObject<List<Flight>>(cachedFlights);
-                    cacheRepository.Set(SearchTypes.Combined, $"{model.DepartureAirport}-{model.ArrivalAirport}", flights);
-                    searchResponse.FlightsAndHotels = new List<FlightAndHotel>();
+                    cacheRepository.Set(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}", flights);
+                    var listCombined = new List<FlightAndHotel>();
                     foreach (var flight in flights)
                     {
-                        var hotels = searchResponse.Hotels.Where(x => x.DestinationCode == flight.ArrivalAirport);
-                        if (hotels.Any())
+                        var hotelsMatch = hotels.Where(x => x.DestinationCode == flight.ArrivalAirport);
+                        if (hotelsMatch.Any())
                         {
                             var flightsAndHotels = new FlightAndHotel()
                             {
@@ -73,9 +74,10 @@ namespace Services.Services
                             foreach (var hotel in hotels)
                                 flightsAndHotels.DestinationHotels.Add(hotel);
 
-                            searchResponse.FlightsAndHotels.Add(flightsAndHotels);
+                            listCombined.Add(flightsAndHotels);
                         }
                     }
+                    searchResponse.Options = listCombined;
                 }
             }
 

@@ -17,9 +17,9 @@ namespace Mock_booking_system_API.Controllers
 
         [HttpPost]
         [Route("Search")]
-        public async Task<IActionResult> Search([FromBody] SearchModel model)
+        public async Task<IActionResult> Search([FromBody] SearchReq model)
         {
-            if (string.IsNullOrWhiteSpace(model.ArrivalAirport))
+            if (string.IsNullOrWhiteSpace(model.Destination))
                 return Ok("Please provide arrival airpot");
 
             if (model.DateFrom == null)
@@ -28,7 +28,7 @@ namespace Mock_booking_system_API.Controllers
             if (model.DateTo == null)
                 return Ok("Please provide date to");
 
-            ResponseModel response = new ResponseModel();
+            ResponseReq response = new ResponseReq();
             try
             {
                 response = await searchService.Search(model);
@@ -37,13 +37,10 @@ namespace Mock_booking_system_API.Controllers
             {
             }
 
-            if (response.Hotels == null || response.Hotels.Count == 0)
+            if (response.Options == null)
                 return Ok("No hotels found");
 
-            if (response.FlightsAndHotels == null)
-                return Ok(response.Hotels);
-            else
-                return Ok(response.FlightsAndHotels);
+            return Ok(response);
         }
     }
 }

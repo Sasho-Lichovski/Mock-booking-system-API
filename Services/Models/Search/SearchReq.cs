@@ -2,11 +2,11 @@
 
 namespace Services.Models.Search
 {
-    public class SearchModel
+    public class SearchReq
     {
         public string DepartureAirport { get; set; }
         [Required]
-        public string ArrivalAirport { get; set; }
+        public string Destination { get; set; }
         [Required]
         public DateTime? DateFrom { get; set; }
         [Required]
