@@ -12,6 +12,7 @@
           "Newtonsoft.Json": "13.0.3",
           "Repository": "1.0.0",
           "RestSharp": "111.2.0",
+          "System.IdentityModel.Tokens.Jwt": "5.7.0",
           "Utils": "1.0.0"
         },
         "runtime": {
@@ -94,6 +95,39 @@
           }
         }
       },
+      "Microsoft.IdentityModel.JsonWebTokens/5.7.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "5.7.0",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
+            "assemblyVersion": "5.7.0.0",
+            "fileVersion": "5.7.0.41120"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Logging/5.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll": {
+            "assemblyVersion": "5.7.0.0",
+            "fileVersion": "5.7.0.41120"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Tokens/5.7.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Logging": "5.7.0",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {
+            "assemblyVersion": "5.7.0.0",
+            "fileVersion": "5.7.0.41120"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -110,7 +144,21 @@
           }
         }
       },
+      "System.IdentityModel.Tokens.Jwt/5.7.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.JsonWebTokens": "5.7.0",
+          "Microsoft.IdentityModel.Tokens": "5.7.0",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll": {
+            "assemblyVersion": "5.7.0.0",
+            "fileVersion": "5.7.0.41120"
+          }
+        }
+      },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "System.Security.Cryptography.Cng/4.5.0": {},
       "Entities/1.0.0": {
         "runtime": {
           "Entities.dll": {}
@@ -189,6 +237,27 @@
       "path": "microsoft.extensions.primitives/6.0.0",
       "hashPath": "microsoft.extensions.primitives.6.0.0.nupkg.sha512"
     },
+    "Microsoft.IdentityModel.JsonWebTokens/5.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zWeKWLdKdA9hbxEFBMCrImfbcHGSbwXJh4Q7dE2xIqDcaG+Uect+QUTSuXLsibtGG7/CwjhZgjZx7cl3KuRoXA==",
+      "path": "microsoft.identitymodel.jsonwebtokens/5.7.0",
+      "hashPath": "microsoft.identitymodel.jsonwebtokens.5.7.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Logging/5.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ciNPEQSnOXlhLBjylS2B8QLQhmWFXBAzbKyxpswLd9NHheCKoyC1zFU46W36Oj/Bx+RpYuOWkq1FZgnu8DqH2g==",
+      "path": "microsoft.identitymodel.logging/5.7.0",
+      "hashPath": "microsoft.identitymodel.logging.5.7.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Tokens/5.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hj7eUanB5f8ap9e4I+iVY0Fbm9Uh0tG1UlZq3Z+EGq9nbDUOn8ml3N5YotNQX6XD0q/Upe16tt0jkAIVIWKrWg==",
+      "path": "microsoft.identitymodel.tokens/5.7.0",
+      "hashPath": "microsoft.identitymodel.tokens.5.7.0.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -203,12 +272,26 @@
       "path": "restsharp/111.2.0",
       "hashPath": "restsharp.111.2.0.nupkg.sha512"
     },
+    "System.IdentityModel.Tokens.Jwt/5.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9whmG+NvaZaTVW27i7CWiEMWAndDC4JpHg6FhZgYzFOQidscBmwu8qeGsTi0YL/HdqxmNzWqsni591dPgMYB0g==",
+      "path": "system.identitymodel.tokens.jwt/5.7.0",
+      "hashPath": "system.identitymodel.tokens.jwt.5.7.0.nupkg.sha512"
+    },
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Cng/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
+      "path": "system.security.cryptography.cng/4.5.0",
+      "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
     },
     "Entities/1.0.0": {
       "type": "project",
