@@ -28,7 +28,7 @@ namespace Mock_booking_system_API.Controllers
             if (request.DateTo == null)
                 return Ok("Please provide date to");
 
-            ResponseReq response = new ResponseReq();
+            SearchRes response = new SearchRes();
             try
             {
                 response = await searchService.Search(request);
@@ -37,7 +37,7 @@ namespace Mock_booking_system_API.Controllers
             {
             }
 
-            if (response.Options == null)
+            if (response.Options == null || response.Options.Count == 0)
                 return Ok("No hotels found");
 
             return Ok(response);

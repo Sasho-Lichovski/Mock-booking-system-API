@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dJnjbZbgjSM4Ej2U5/V+Hrx6GL8qw1c+slmPqS/xX1kisFfteZpkAXibDv2CzoTJWABm2BOTxOshTlZ4oG12gw==",
+  "dgSpecHash": "X82P8+Cv3zkofz1X4ut4Qi1wFpIzBcJEBQ7omrXRvdzi9KltrhR4O9591l98rD67Yg1NyxBrjjI1/K9vOYZpVA==",
   "success": true,
   "projectFilePath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Services\\Services.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\hangfire.core\\1.8.14\\hangfire.core.1.8.14.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.0\\microsoft.extensions.caching.memory.6.0.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",

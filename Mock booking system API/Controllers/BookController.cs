@@ -16,17 +16,22 @@ namespace Mock_booking_system_API.Controllers
         }
 
         [HttpPost]
+        [Route("Book")]
         public  IActionResult Book([FromBody] BookReq request)
         {
+            BookRes response = new BookRes();
             try
             {
-                bookService.CreateBooking(request);
+                response = bookService.CreateBooking(request);
             }
             catch (Exception ex)
             {
             }
+            
+            if (!string.IsNullOrEmpty(response.Message))
+                return Ok(response.Message);
 
-            return Ok("Pending");
+            return Ok(new { response.BookingTime, response.BookingCode });
         }
     }
 }

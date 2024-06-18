@@ -5,6 +5,7 @@ using Services.Interfaces;
 using Services.Models;
 using Services.Models.Search;
 using Utils.Constants;
+using Utils.Helpers;
 
 namespace Services.Services
 {
@@ -19,9 +20,33 @@ namespace Services.Services
             this.cacheRepository = cacheRepository;
         }
 
-        public async Task<ResponseReq> Search(SearchReq model)
+        private List<Option> CreateHotelOptions(List<Hotel> hotels, DateTime dateFrom, bool isNew = false)
         {
-            var searchResponse = new ResponseReq();
+            var options = new List<Option>();
+            foreach (var hotel in hotels)
+            {
+                var option = new Option
+                {
+                    HotelCode = hotel.HotelCode.ToString(),
+                    HotelName = hotel.HotelName,
+                    City = hotel.City,
+                    ArrivalAirpot = hotel.DestinationCode,
+                    FlightCode = Message.NotApplicable,
+                    FlightNumber = Message.NotApplicable,
+                    OptionCode = isNew ? Calculate.GetOptionCode(6) : hotel.OptionCode,
+                    Price = Calculate.GetRandomNumberBetween(100, 300),
+                    DateFrom = dateFrom
+                };
+                hotel.OptionCode = option.OptionCode;
+                options.Add(option);
+            }
+            return options;
+        }
+
+        public async Task<SearchRes> Search(SearchReq model)
+        {
+            var response = new SearchRes { Options = new List<Option>() };
+
             var hotels = new List<Hotel>();
 
             var cachedHotels = cacheRepository.Get(SearchTypes.Hotels, model.Destination);
@@ -31,61 +56,48 @@ namespace Services.Services
                 if (!string.IsNullOrEmpty(jsonString))
                 {
                     hotels = JsonConvert.DeserializeObject<List<Hotel>>(jsonString);
-                    foreach (var hotel in hotels)
-                    {
-                        hotel.OptionCode = GetOptionCode(6);
-                    }
+                    response.Options = CreateHotelOptions(hotels, model.DateFrom.Value, true);
                     cacheRepository.Set(SearchTypes.Hotels, model.Destination, hotels);
-                    searchResponse.Options = hotels;
                 }
             }
             else
             {
                 hotels = JsonConvert.DeserializeObject<List<Hotel>>(cachedHotels);
-                searchResponse.Options = hotels;
+                response.Options = CreateHotelOptions(hotels, model.DateFrom.Value);
             }
 
-            if (IsLastMinuteCall(model.DateFrom.Value, 45))
-                return searchResponse;
+            if (!hotels.Any())
+                return response;
+
+            if (Calculate.IsLastMinuteCall(model.DateFrom.Value, SearchTypes.LastMinuteDays))
+                return response;
 
             if (!string.IsNullOrWhiteSpace(model.DepartureAirport))
             {
-                var cachedFlights = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}");
-                if (string.IsNullOrEmpty(cachedFlights) || cachedFlights == null)
-                {
-                    var jsonString = await GetFlights(model.DepartureAirport, model.Destination);
-                    cachedFlights = jsonString;
-                }
+                var jsonString = cacheRepository.Get(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}");
 
-                if (!string.IsNullOrEmpty(cachedFlights))
-                {
-                    var flights = JsonConvert.DeserializeObject<List<Flight>>(cachedFlights);
-                    cacheRepository.Set(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}", flights);
-                    var listCombined = new List<FlightAndHotel>();
-                    foreach (var flight in flights)
-                    {
-                        var hotelsMatch = hotels.Where(x => x.DestinationCode == flight.ArrivalAirport);
-                        if (hotelsMatch.Any())
-                        {
-                            var flightsAndHotels = new FlightAndHotel()
-                            {
-                                ArrivalAirport = flight.ArrivalAirport,
-                                DepartureAirport = flight.DepartureAirport,
-                                FlightCode = flight.FlightCode,
-                                FlightNumber = flight.FlightNumber,
-                                DestinationHotels = new List<Hotel>()
-                            };
-                            foreach (var hotel in hotels)
-                                flightsAndHotels.DestinationHotels.Add(hotel);
+                if (string.IsNullOrEmpty(jsonString) || jsonString == null)
+                    jsonString = await GetFlights(model.DepartureAirport, model.Destination);
 
-                            listCombined.Add(flightsAndHotels);
-                        }
-                    }
-                    searchResponse.Options = listCombined;
+                if (string.IsNullOrEmpty(jsonString))
+                    return response;
+
+                var flights = JsonConvert.DeserializeObject<List<Flight>>(jsonString);
+                cacheRepository.Set(SearchTypes.Combined, $"{model.DepartureAirport}-{model.Destination}", flights);
+
+                var hotelMatches = response.Options.Where(x => flights.Select(x => x.ArrivalAirport).Contains(x.ArrivalAirpot));
+                foreach (var option in hotelMatches)
+                {
+                    var flight = flights.FirstOrDefault(x => x.ArrivalAirport == option.ArrivalAirpot);
+                    if (flight == null) continue;
+
+                    option.FlightCode = flight.FlightCode.ToString();
+                    option.FlightNumber = flight.FlightNumber;
+                    option.Price = Calculate.GetRandomNumberBetween(300, 500);
                 }
             }
 
-            return searchResponse;
+            return response;
         }
 
         private async Task<string> GetHotels(string code)
@@ -110,23 +122,6 @@ namespace Services.Services
                 return response.Content;
 
             return string.Empty;
-        }
-
-        private bool IsLastMinuteCall(DateTime dateFrom, int daysCount)
-        {
-            DateTime today = DateTime.Now;
-            DateTime targetDate = today.AddDays(daysCount);
-
-            return dateFrom > today && dateFrom <= targetDate;
-        }
-
-        private string GetOptionCode(int length)
-        {
-            var random = new Random();
-            const string pool = "abcdefghijklmnopqrstuvwxyz0123456789";
-            var chars = Enumerable.Range(0, length)
-                .Select(x => pool[random.Next(0, pool.Length)]);
-            return new string(chars.ToArray());
         }
     }
 }

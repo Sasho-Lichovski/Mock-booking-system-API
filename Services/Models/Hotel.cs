@@ -9,5 +9,6 @@
         public string City { get; set; }
 
         public string OptionCode { get; set; }
+        public bool IsLastMinute { get; set; }
     }
 }
