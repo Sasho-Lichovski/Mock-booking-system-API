@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.Enums;
 using Services.Interfaces;
+using Services.Models.Error;
 
 namespace Mock_booking_system_API.Controllers
 {
@@ -11,10 +12,12 @@ namespace Mock_booking_system_API.Controllers
     public class StatusController : ControllerBase
     {
         private readonly IBookService bookService;
+        private readonly IErrorService errorService;
 
-        public StatusController(IBookService bookService)
+        public StatusController(IBookService bookService, IErrorService errorService)
         {
             this.bookService = bookService;
+            this.errorService = errorService;
         }
 
         [HttpGet]
@@ -28,6 +31,16 @@ namespace Mock_booking_system_API.Controllers
             }
             catch (Exception ex)
             {
+                errorService.LogError(new ErrorModel
+                {
+                    Controller = "Status",
+                    Action = "CheckStatus",
+                    ErrorMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    AdditionalDetails = bookingCode,
+                    LogTime = DateTime.Now
+                });
+                throw;
             }
 
             return Ok(status.ToFriendlyName());

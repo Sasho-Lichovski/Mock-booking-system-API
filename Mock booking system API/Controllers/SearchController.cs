@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Services.Interfaces;
+using Services.Models.Error;
 using Services.Models.Search;
 
 namespace Mock_booking_system_API.Controllers
@@ -11,10 +13,12 @@ namespace Mock_booking_system_API.Controllers
     public class SearchController : ControllerBase
     {
         private readonly ISearchService searchService;
+        private readonly IErrorService errorService;
 
-        public SearchController(ISearchService searchService)
+        public SearchController(ISearchService searchService, IErrorService errorService)
         {
             this.searchService = searchService;
+            this.errorService = errorService;
         }
 
         [HttpPost]
@@ -34,9 +38,22 @@ namespace Mock_booking_system_API.Controllers
             try
             {
                 response = await searchService.Search(request);
+
+                // test purpose
+                //throw new Exception(request.ToString());
             }
             catch (Exception ex)
             {
+                errorService.LogError(new ErrorModel
+                {
+                    Controller = "Search",
+                    Action = "Search",
+                    ErrorMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    AdditionalDetails = JsonConvert.SerializeObject(request),
+                    LogTime = DateTime.Now
+                });
+                throw;
             }
 
             if (response.Options == null || response.Options.Count == 0)

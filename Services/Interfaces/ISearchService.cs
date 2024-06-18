@@ -1,5 +1,4 @@
-﻿using RestSharp;
-using Services.Models.Search;
+﻿using Services.Models.Search;
 
 namespace Services.Interfaces
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Repository.Interfaces;
+using Utils.Constants;
 
 namespace Repository.Repositories
 {
@@ -24,6 +25,17 @@ namespace Repository.Repositories
         public void Set(string cacheKey, string additionalParam, object value)
         {
             memoryCache.Set($"{cacheKey}{additionalParam}", JsonConvert.SerializeObject(value));
+        }
+
+        public void LogError(string cacheKey, object value)
+        {
+            var jsonString = Get(Error.Controller, "");
+            if (!string.IsNullOrEmpty(jsonString))
+                jsonString = $"{jsonString},{JsonConvert.SerializeObject(value)}";
+            else
+                jsonString = JsonConvert.SerializeObject(value);
+
+            memoryCache.Set(cacheKey, jsonString);
         }
     }
 }

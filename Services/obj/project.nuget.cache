@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "wrpnZM3ts4hnC5WzENGQisFZ7meTNB5IW4meHfprQk6BNOazkWPytPdbzeDmR8qcowzF6N1ZDm44yVdcQFPdxw==",
+  "dgSpecHash": "yQyBF0LR5g/Yx7noZWb1BRltZYGxXh1Ei3aINKVcJjUkFu40RLfY25n6aPDROMBQvrYJkjAIgGpT6du8DbIIuQ==",
   "success": true,
   "projectFilePath": "C:\\Solutions\\Mock booking system API\\Mock-booking-system-API\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\hangfire.core\\1.8.14\\hangfire.core.1.8.14.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.1.1\\microsoft.aspnetcore.http.abstractions.2.1.1.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.1.1\\microsoft.aspnetcore.http.features.2.1.1.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.0\\microsoft.extensions.caching.memory.6.0.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
@@ -18,7 +20,8 @@
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\restsharp\\111.2.0\\restsharp.111.2.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.identitymodel.tokens.jwt\\5.7.0\\system.identitymodel.tokens.jwt.5.7.0.nupkg.sha512",
     "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\Sasho Lichovski\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }

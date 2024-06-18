@@ -22,7 +22,7 @@ namespace Services.Services
         {
             var jsonString = cacheRepository.Get(Book.Booking, bookingCode);
             if (string.IsNullOrEmpty(jsonString))
-                return BookingStatusEnum.Failed;
+                return BookingStatusEnum.NotExist;
 
             var booking = JsonConvert.DeserializeObject<Booking>(jsonString);
             if (booking == null)

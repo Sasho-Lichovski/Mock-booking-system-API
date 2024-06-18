@@ -4,7 +4,8 @@
     {
         Success,
         Failed,
-        Pending
+        Pending,
+        NotExist
     }
 
     public static partial class EntitiesEnumExtensions
@@ -19,6 +20,8 @@
                     return "Failed";
                 case BookingStatusEnum.Pending:
                     return "Pending";
+                case BookingStatusEnum.NotExist:
+                    return "Booking does not exist";
                 default:
                     return "Unknown";
 

@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Repository.Interfaces;
 using Repository.Repositories;
 using Services.Interfaces;
+using Services.Middleware;
 using Services.Services;
 using System.Text;
 
@@ -17,6 +18,8 @@ namespace Mock_booking_system_API
             // Add services to the container.
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IErrorService, ErrorService>();
+
             // JWT settings
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
             builder.Services.AddSingleton(new TokenService(
@@ -27,7 +30,7 @@ namespace Mock_booking_system_API
 
             // repositories
             builder.Services.AddMemoryCache();
-            builder.Services.AddScoped<ICacheRepository, CacheRepository>();
+            builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 
             builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
@@ -57,6 +60,8 @@ namespace Mock_booking_system_API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
