@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Services.Interfaces;
+using Services.Models.Book;
 using Services.Models.Error;
 using Services.Models.Search;
 
@@ -25,14 +26,9 @@ namespace Mock_booking_system_API.Controllers
         [Route("Search")]
         public async Task<IActionResult> Search([FromBody] SearchReq request)
         {
-            if (string.IsNullOrWhiteSpace(request.Destination))
-                return Ok("Please provide arrival airpot");
-
-            if (request.DateFrom == null)
-                return Ok("Please provide date from");
-
-            if (request.DateTo == null)
-                return Ok("Please provide date to");
+            var validationMessage = ValidateRequest(request);
+            if (!string.IsNullOrEmpty(validationMessage))
+                return Ok(validationMessage);
 
             SearchRes response = new SearchRes();
             try
@@ -60,6 +56,20 @@ namespace Mock_booking_system_API.Controllers
                 return Ok("No hotels found");
 
             return Ok(response);
+        }
+
+        private string ValidateRequest(SearchReq request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Destination))
+                return "Please provide destination";
+
+            if (request.DateFrom == null)
+                return "Please provide date from";
+
+            if (request.DateTo == null)
+                return "Please provide date to";
+
+            return string.Empty;
         }
     }
 }

@@ -24,6 +24,9 @@ namespace Mock_booking_system_API.Controllers
         [Route("CheckStatus")]
         public ActionResult CheckStatus(string bookingCode)
         {
+            if (string.IsNullOrEmpty(bookingCode))
+                return Ok("Please provide booking code");
+
             BookingStatusEnum status = BookingStatusEnum.Pending;
             try
             {

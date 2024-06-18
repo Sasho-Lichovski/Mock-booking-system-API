@@ -25,6 +25,10 @@ namespace Mock_booking_system_API.Controllers
         [Route("Book")]
         public  IActionResult Book([FromBody] BookReq request)
         {
+            var validationMessage = ValidateRequest(request);
+            if (!string.IsNullOrEmpty(validationMessage))
+                return Ok(validationMessage);
+
             BookRes response = new BookRes();
             try
             {
@@ -52,5 +56,26 @@ namespace Mock_booking_system_API.Controllers
 
             return Ok(new { response.BookingTime, response.BookingCode });
         }
+
+        private string ValidateRequest(BookReq request)
+        {
+            if (string.IsNullOrEmpty(request.OptionCode))
+                return "Please provide option code";
+
+            if (request.SearchReq == null)
+                return "Please provide search request";
+
+            if (string.IsNullOrWhiteSpace(request.SearchReq.Destination))
+                return "Please provide destination";
+
+            if (request.SearchReq.DateFrom == null)
+                return "Please provide date from";
+
+            if (request.SearchReq.DateTo == null)
+                return "Please provide date to";
+
+            return string.Empty;
+        }
+
     }
 }
